@@ -1,0 +1,65 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using proyecto.Model;
+using proyecto.Services;
+
+namespace proyecto.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsuarioController : ControllerBase
+    {
+        private readonly IUsuarioService _usService;
+        public UsuarioController(IUsuarioService usService)
+        {
+            _usService = usService;
+        }
+        [HttpGet]
+        public async Task<ActionResult<Usuario>> GetAll()
+        {
+            var us = await _usService.GetAll();
+            return Ok(us);
+        }
+
+        // GET: api/
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Usuario>> GetUs(int id)
+        {
+            var us = await _usService.GetU(id);
+            if (us == null)
+            {
+                return NotFound();
+            }
+            return Ok(us);
+        }
+        // POST: api/
+        [HttpPost]
+        public async Task<ActionResult<Usuario>> PostUsuario(string email, string contrasena, int IdRol)
+        {
+            var newUsu = await _usService.CreateU(email, contrasena, IdRol);
+            return CreatedAtAction(nameof(GetUs), new { id = newUsu.IDUsuario }, newUsu);
+        }
+        // PUT: api/
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUsuario(int id,string email, string contrasena, int IdRol)
+        {
+            var updatedus = await _usService.Update(id, email, contrasena, IdRol);
+            if (updatedus == null)
+            {
+                return BadRequest();
+            }
+            return NoContent();
+        }
+        // DELETE: api/
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUsuario(int id)
+        {
+            var result = await _usService.Delete(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+    }
+}
