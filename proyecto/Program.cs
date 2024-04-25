@@ -72,6 +72,10 @@ builder.Services.AddScoped<ITrabajadoresService, TrabajadoresService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+//servicio Usuario
+builder.Services.AddScoped<IDatosPartidaRepository, DatosPartidaRepository>();
+builder.Services.AddScoped<IDatosPartidaService, DatosPartidaService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
