@@ -8,18 +8,18 @@ namespace proyecto.Repositories
     {
         Task<List<Trabajadores>> GetAll();
         Task<Trabajadores> GetT(int id);
-        Task<Trabajadores> CreateT(int numdoc,string nombre,string apellido,int IdRol,int IdTiD);
+        Task<Trabajadores> CreateT(string numdoc,string nombre,string apellido,int IdRol,int IdTiD);
         Task<Trabajadores> Update(Trabajadores tra);
         Task<Trabajadores> Delete(int id);
     }
     public class TrabajadoresRepository : ITrabajadoresRepository
     {
-        private readonly GranjaDbContext _db;
-        public TrabajadoresRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public TrabajadoresRepository(AgroCacao db)
         {
             _db = db;
         }
-        public async Task<Trabajadores> CreateT(int numdoc, string nombre, string apellido, int IdRol, int IdTiD)
+        public async Task<Trabajadores> CreateT(string numdoc, string nombre, string apellido, int IdRol, int IdTiD)
         {
             Trabajadores newTra = new Trabajadores
             {
@@ -38,7 +38,17 @@ namespace proyecto.Repositories
         {
             Trabajadores tra = await GetT(id);
 
-            return await Update(tra);
+            if (tra == null)
+            {
+                return tra;
+            }
+            else
+            {
+                tra.status = false;
+            }
+            _db.Entry(tra).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return tra;
         }
 
         public async Task<List<Trabajadores>> GetAll()

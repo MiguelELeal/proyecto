@@ -15,8 +15,8 @@ namespace proyecto.Repositories
     }
     public class UsuarioRepository : IUsuarioRepository
     {
-        private readonly GranjaDbContext _db;
-        public UsuarioRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public UsuarioRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -37,7 +37,17 @@ namespace proyecto.Repositories
         {
             Usuario usu = await GetU(id);
 
-            return await Update(usu);
+            if (usu == null)
+            {
+                return usu;
+            }
+            else
+            {
+                usu.status = false;
+            }
+            _db.Entry(usu).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return usu;
         }
 
         public async Task<List<Usuario>> GetAll()

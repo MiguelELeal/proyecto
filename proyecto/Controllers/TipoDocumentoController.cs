@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTípoDocumento(int id, string tipo)
+        public async Task<IActionResult> PutTípoDocumento(int id, string? tipo)
         {
             var updatedtip = await _tipService.Update(id,tipo);
             if (updatedtip == null)

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace proyecto.Model
 {
@@ -12,6 +13,8 @@ namespace proyecto.Model
         public required string Nombre { get; set; }
         [Required]
         public required float Area { get; set;}
+        [JsonIgnore]
+        public bool status { get; set; } = true;
 
     }
 }

@@ -35,16 +35,16 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Partida>> PostPartida(int IdUsuario, DateOnly fechaInicio)
+        public async Task<ActionResult<Partida>> PostPartida(int IdUsuario, DateOnly fechaInicio, string ubicacion, string nivel)
         {
-            var newPa = await _paService.CreatePartida(IdUsuario, fechaInicio);
+            var newPa = await _paService.CreatePartida(IdUsuario, fechaInicio, ubicacion, nivel);
             return CreatedAtAction(nameof(GetPa), new { id = newPa.IDPartida }, newPa);
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPartida(int id, int IdUsuario, DateOnly fechaInicio)
+        public async Task<IActionResult> PutPartida(int id, int? IdUsuario, DateOnly? fechaInicio, string? ubicacion, string? nivel)
         {
-            var updatedpa = await _paService.Update(id, IdUsuario, fechaInicio);
+            var updatedpa = await _paService.Update(id, IdUsuario, fechaInicio,ubicacion,nivel);
             if (updatedpa == null)
             {
                 return BadRequest();

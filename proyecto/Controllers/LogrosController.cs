@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLogro(int id, string nombre)
+        public async Task<IActionResult> PutLogro(int id, string? nombre)
         {
             var updatedLo = await _loService.Update(id, nombre);
             if (updatedLo == null)

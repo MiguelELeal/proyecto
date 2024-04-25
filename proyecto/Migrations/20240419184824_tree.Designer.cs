@@ -11,7 +11,7 @@ using proyecto.Context;
 
 namespace proyecto.Migrations
 {
-    [DbContext(typeof(GranjaDbContext))]
+    [DbContext(typeof(AgroCacao))]
     [Migration("20240419184824_tree")]
     partial class tree
     {

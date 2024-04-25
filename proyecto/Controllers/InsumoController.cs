@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInsumo(int id, string nombre, string descripcion, int stock)
+        public async Task<IActionResult> PutInsumo(int id, string? nombre, string? descripcion, int? stock)
         {
             var updatedIns = await _insumoService.Update(id, nombre, descripcion, stock);
             if (updatedIns == null)

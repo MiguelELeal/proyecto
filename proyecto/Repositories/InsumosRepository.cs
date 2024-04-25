@@ -14,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class InsumosRepository : IInsumosRepository
     {
-        private readonly GranjaDbContext _db;
-        public InsumosRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public InsumosRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -37,8 +37,18 @@ namespace proyecto.Repositories
         public async Task<Insumos> Delete(int id)
         {
             Insumos insumos = await GetInsumo(id);
-            
-            return await Update(insumos);
+
+            if (insumos == null)
+            {
+                return insumos;
+            }
+            else
+            {
+                insumos.status = false;
+            }
+            _db.Entry(insumos).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return insumos;
         }
 
         public async Task<Insumos> GetInsumo(int id)

@@ -12,8 +12,8 @@ using proyecto.Context;
 namespace proyecto.Migrations
 {
     [DbContext(typeof(AgroCacao))]
-    [Migration("20240418212243_Two")]
-    partial class Two
+    [Migration("20240424211157_four")]
+    partial class four
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,6 +226,9 @@ namespace proyecto.Migrations
                     b.Property<string>("TipoRol")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IdRol");
 

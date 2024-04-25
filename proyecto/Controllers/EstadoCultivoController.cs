@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/Rol
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEstado(int id, string nombre)
+        public async Task<IActionResult> PutEstado(int id, string? nombre)
         {
             var updatedEsta = await _estaService.Update(id, nombre);
             if (updatedEsta == null)

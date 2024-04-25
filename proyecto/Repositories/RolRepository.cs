@@ -15,8 +15,8 @@ namespace proyecto.Repositories
     }
     public class RolRepository : IRolRepository
     {
-        private readonly GranjaDbContext _db;
-        public RolRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public RolRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -55,13 +55,15 @@ namespace proyecto.Repositories
             Rol rol = await GetRol(id);
             if (rol == null)
             {
-                return null;
+                return rol;
             }
             else
             {
                 rol.status = false;
             }
-            return await Update(rol);
+            _db.Entry(rol).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return rol;
         }
     }
 }

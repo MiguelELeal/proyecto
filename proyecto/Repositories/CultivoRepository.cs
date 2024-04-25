@@ -15,8 +15,8 @@ namespace proyecto.Repositories
     }
     public class CultivoRepository : ICultivoRepository
     {
-        private readonly GranjaDbContext _db;
-        public CultivoRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public CultivoRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -38,7 +38,17 @@ namespace proyecto.Repositories
         {
             Cultivo cultivo = await GetCultivo(id);
 
-            return await Update(cultivo);
+            if (cultivo == null)
+            {
+                return cultivo;
+            }
+            else
+            {
+                cultivo.status = false;
+            }
+            _db.Entry(cultivo).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return cultivo;
         }
 
         public async Task<List<Cultivo>> GetAll()

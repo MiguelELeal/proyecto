@@ -12,8 +12,8 @@ using proyecto.Context;
 namespace proyecto.Migrations
 {
     [DbContext(typeof(AgroCacao))]
-    [Migration("20240418212243_Two")]
-    partial class Two
+    [Migration("20240425214533_addDatosPartida")]
+    partial class addDatosPartida
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,6 +178,14 @@ namespace proyecto.Migrations
                     b.Property<int>("IDUsuarioFK")
                         .HasColumnType("int");
 
+                    b.Property<string>("Nivel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ubicacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("IDPartida");
 
                     b.HasIndex("IDUsuarioFK");
@@ -226,6 +234,9 @@ namespace proyecto.Migrations
                     b.Property<string>("TipoRol")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IdRol");
 
@@ -332,8 +343,9 @@ namespace proyecto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumDoc")
-                        .HasColumnType("int");
+                    b.Property<string>("NumDoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IDTrabajador");
 

@@ -11,7 +11,7 @@ using proyecto.Context;
 
 namespace proyecto.Migrations
 {
-    [DbContext(typeof(GranjaDbContext))]
+    [DbContext(typeof(AgroCacao))]
     [Migration("20240418211833_Inicial")]
     partial class Inicial
     {

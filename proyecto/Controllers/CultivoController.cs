@@ -42,7 +42,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/Rol
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCultivo(int id, int IdSiembra, DateOnly FechaCosE, int IdEstado, DateOnly FechaModificacion)
+        public async Task<IActionResult> PutCultivo(int id, int? IdSiembra, DateOnly? FechaCosE, int? IdEstado, DateOnly? FechaModificacion)
         {
             var updatedEsta = await _cultivoService.Update(id, IdSiembra, FechaCosE, IdEstado, FechaModificacion);
             if (updatedEsta == null)

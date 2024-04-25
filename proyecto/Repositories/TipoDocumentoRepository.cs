@@ -14,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class TipoDocumentoRepository : ITipoDocumentoRepository
     {
-        private readonly GranjaDbContext _db;
-        public TipoDocumentoRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public TipoDocumentoRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -33,8 +33,18 @@ namespace proyecto.Repositories
         public async Task<TipoDocumento> Delete(int id)
         {
             TipoDocumento td = await GetTD(id);
-            
-            return await Update(td);
+
+            if (td == null)
+            {
+                return td;
+            }
+            else
+            {
+                td.status = false;
+            }
+            _db.Entry(td).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return td;
         }
 
         public async Task<List<TipoDocumento>> GetAll()

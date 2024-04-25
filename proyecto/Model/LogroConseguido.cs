@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace proyecto.Model
 {
@@ -18,5 +19,7 @@ namespace proyecto.Model
         public virtual Logro? Logro { get; set; }
         [Required]
         public DateOnly FechaLogro { get; set; }
+        [JsonIgnore]
+        public bool status { get; set; } = true;
     }
 }

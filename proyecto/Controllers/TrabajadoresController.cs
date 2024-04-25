@@ -34,14 +34,14 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Trabajadores>> PostTrabajadores(int numdoc, string nombre, string apellido, int IdRol, int IdTiD)
+        public async Task<ActionResult<Trabajadores>> PostTrabajadores(string numdoc, string nombre, string apellido, int IdRol, int IdTiD)
         {
             var newTra = await _traService.CreateT(numdoc,nombre,apellido,IdRol,IdTiD);
             return CreatedAtAction(nameof(GetTra), new { id = newTra.IDTrabajador }, newTra);
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrabajadores(int id, int numdoc, string nombre, string apellido, int IdRol, int IdTiD)
+        public async Task<IActionResult> PutTrabajadores(int id, string? numdoc, string? nombre, string? apellido, int? IdRol, int? IdTiD)
         {
             var updatedtra = await _traService.Update(id, numdoc, nombre, apellido, IdRol, IdTiD);
             if (updatedtra == null)

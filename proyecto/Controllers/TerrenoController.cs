@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTerreno(int id, string nombre, float area)
+        public async Task<IActionResult> PutTerreno(int id, string? nombre, float? area)
         {
             var updatedte = await _teService.Update(id, nombre, area);
             if (updatedte == null)

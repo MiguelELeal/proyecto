@@ -14,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class TerrenoRepository : ITerrenoRepository
     {
-        private readonly GranjaDbContext _db;
-        public TerrenoRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public TerrenoRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -35,7 +35,17 @@ namespace proyecto.Repositories
         {
             Terreno terreno = await GetTe(id);
 
-            return await Update(terreno);
+            if (terreno == null)
+            {
+                return terreno;
+            }
+            else
+            {
+                terreno.status = false;
+            }
+            _db.Entry(terreno).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return terreno;
         }
 
         public async Task<List<Terreno>> GetAll()

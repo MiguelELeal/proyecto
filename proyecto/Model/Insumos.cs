@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace proyecto.Model
 {
@@ -14,6 +15,8 @@ namespace proyecto.Model
         public required string Descripcion { get; set; }
         [Required]
         public required int stock { get; set; }
+        [JsonIgnore]
+        public bool status { get; set; } = true;
 
     }
 }

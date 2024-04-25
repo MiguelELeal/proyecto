@@ -11,7 +11,7 @@ using proyecto.Context;
 
 namespace proyecto.Migrations
 {
-    [DbContext(typeof(GranjaDbContext))]
+    [DbContext(typeof(AgroCacao))]
     [Migration("20240418212044_AddRelaciones")]
     partial class AddRelaciones
     {

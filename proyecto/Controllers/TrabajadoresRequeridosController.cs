@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrabajadoresRequeridos(int id, int IdTrabador, int IdProcedimiento)
+        public async Task<IActionResult> PutTrabajadoresRequeridos(int id, int? IdTrabador, int? IdProcedimiento)
         {
             var updatedtra = await _traService.Update(id, IdTrabador, IdProcedimiento);
             if (updatedtra == null)

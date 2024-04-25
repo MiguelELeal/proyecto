@@ -14,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class TipoProcedimientRepository : ITipoProcedimientRepository
     {
-        private readonly GranjaDbContext _db;
-        public TipoProcedimientRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public TipoProcedimientRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -34,7 +34,17 @@ namespace proyecto.Repositories
         {
             TipoProcedimiento tp = await GetTp(id);
 
-            return await Update(tp);
+            if (tp == null)
+            {
+                return tp;
+            }
+            else
+            {
+                tp.status = false;
+            }
+            _db.Entry(tp).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return tp;
         }
 
         public async Task<List<TipoProcedimiento>> GetAll()

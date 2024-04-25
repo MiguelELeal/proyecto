@@ -14,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class InsumosRequeridoRepository : IInsumosRequeridosRepository
     {
-        private readonly GranjaDbContext _db;
-        public InsumosRequeridoRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public InsumosRequeridoRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -37,7 +37,17 @@ namespace proyecto.Repositories
         {
             InsumosRequeridos ins = await GetIns(id);
 
-            return await Update(ins);
+            if (ins == null)
+            {
+                return ins;
+            }
+            else
+            {
+                ins.status = false;
+            }
+            _db.Entry(ins).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return ins;
         }
 
         public async Task<List<InsumosRequeridos>> GetAll()

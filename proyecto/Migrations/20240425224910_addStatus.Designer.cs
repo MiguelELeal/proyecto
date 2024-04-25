@@ -12,8 +12,8 @@ using proyecto.Context;
 namespace proyecto.Migrations
 {
     [DbContext(typeof(AgroCacao))]
-    [Migration("20240418212243_Two")]
-    partial class Two
+    [Migration("20240425224910_addStatus")]
+    partial class addStatus
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace proyecto.Migrations
                     b.Property<int>("IdSiembraFK")
                         .HasColumnType("int");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDCultivo");
 
                     b.HasIndex("IdEstadoFK");
@@ -52,6 +55,32 @@ namespace proyecto.Migrations
                     b.HasIndex("IdSiembraFK");
 
                     b.ToTable("Cultivos");
+                });
+
+            modelBuilder.Entity("proyecto.Model.DatosPartida", b =>
+                {
+                    b.Property<int>("IdDatosJugador")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdDatosJugador"));
+
+                    b.Property<int>("IdPartidaFk")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProcedimientoFk")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("IdDatosJugador");
+
+                    b.HasIndex("IdPartidaFk");
+
+                    b.HasIndex("IdProcedimientoFk");
+
+                    b.ToTable("DatosPartidas");
                 });
 
             modelBuilder.Entity("proyecto.Model.EstadoCultivo", b =>
@@ -65,6 +94,9 @@ namespace proyecto.Migrations
                     b.Property<string>("NombreEstado")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IDEstado");
 
@@ -86,6 +118,9 @@ namespace proyecto.Migrations
                     b.Property<string>("NombreInsumo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.Property<int>("stock")
                         .HasColumnType("int");
@@ -112,6 +147,9 @@ namespace proyecto.Migrations
                     b.Property<int>("IDProcedimientoFK")
                         .HasColumnType("int");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDInRe");
 
                     b.HasIndex("IDInsumoFK");
@@ -132,6 +170,9 @@ namespace proyecto.Migrations
                     b.Property<string>("NombreLogro")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IDLogro");
 
@@ -155,6 +196,9 @@ namespace proyecto.Migrations
                     b.Property<int>("IDPartidaFK")
                         .HasColumnType("int");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDLogCon");
 
                     b.HasIndex("IDLogroFK");
@@ -177,6 +221,17 @@ namespace proyecto.Migrations
 
                     b.Property<int>("IDUsuarioFK")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nivel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ubicacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IDPartida");
 
@@ -206,6 +261,9 @@ namespace proyecto.Migrations
                     b.Property<int>("IDTipoProcedimientoFK")
                         .HasColumnType("int");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDProcedimiento");
 
                     b.HasIndex("IDCultivoFK");
@@ -226,6 +284,9 @@ namespace proyecto.Migrations
                     b.Property<string>("TipoRol")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IdRol");
 
@@ -249,6 +310,9 @@ namespace proyecto.Migrations
                     b.Property<int>("IDTerrenoFK")
                         .HasColumnType("int");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDSiembra");
 
                     b.HasIndex("IDTerrenoFK");
@@ -271,6 +335,9 @@ namespace proyecto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDTerreno");
 
                     b.ToTable("Terrenos");
@@ -288,6 +355,9 @@ namespace proyecto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDTipoDoc");
 
                     b.ToTable("TipoDocumentos");
@@ -304,6 +374,9 @@ namespace proyecto.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IDTipoPro");
 
@@ -332,8 +405,12 @@ namespace proyecto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumDoc")
-                        .HasColumnType("int");
+                    b.Property<string>("NumDoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IDTrabajador");
 
@@ -357,6 +434,9 @@ namespace proyecto.Migrations
 
                     b.Property<int>("IDTrabjadorFK")
                         .HasColumnType("int");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasKey("IDTraRe");
 
@@ -386,6 +466,9 @@ namespace proyecto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("IDUsuario");
 
                     b.HasIndex("IdRolFK");
@@ -410,6 +493,25 @@ namespace proyecto.Migrations
                     b.Navigation("EstadoCultivo");
 
                     b.Navigation("Siembra");
+                });
+
+            modelBuilder.Entity("proyecto.Model.DatosPartida", b =>
+                {
+                    b.HasOne("proyecto.Model.Partida", "Partida")
+                        .WithMany()
+                        .HasForeignKey("IdPartidaFk")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("proyecto.Model.Procedimento", "Procedimento")
+                        .WithMany()
+                        .HasForeignKey("IdProcedimientoFk")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Partida");
+
+                    b.Navigation("Procedimento");
                 });
 
             modelBuilder.Entity("proyecto.Model.InsumosRequeridos", b =>

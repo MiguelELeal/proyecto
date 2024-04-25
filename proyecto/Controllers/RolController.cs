@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/Rol
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRol(int id, string tipo)
+        public async Task<IActionResult> PutRol(int id, string? tipo)
         {
             var updatedRol = await _rolService.Update(id, tipo);
             if (updatedRol == null)

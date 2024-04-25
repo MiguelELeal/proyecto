@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSiembra(int id, DateOnly fechaSie, float Area, int IdTe)
+        public async Task<IActionResult> PutSiembra(int id, DateOnly? fechaSie, float? Area, int? IdTe)
         {
             var updatedsie = await _sieService.Update(id, fechaSie, Area, IdTe);
             if (updatedsie == null)

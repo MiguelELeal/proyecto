@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using proyecto.Context;
 using proyecto.Model;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace proyecto.Repositories
 {
@@ -13,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class EstadoCultivoRepository : IEstadoCultivoRepository
     {
-        private readonly GranjaDbContext _db;
-        public EstadoCultivoRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public EstadoCultivoRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -32,8 +33,18 @@ namespace proyecto.Repositories
         public async Task<EstadoCultivo> Delete(int id)
         {
             EstadoCultivo esta = await GetEsta(id);
-            
-            return await Update(esta);
+
+            if (esta == null)
+            {
+                return esta;
+            }
+            else
+            {
+                esta.status = false;
+            }
+            _db.Entry(esta).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return esta;
         }
 
         public async Task<List<EstadoCultivo>> GetAll()

@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProcedimiento(int id, int IdCultivo, int IdTPro, DateOnly fechaPro, string descrip)
+        public async Task<IActionResult> PutProcedimiento(int id, int? IdCultivo, int? IdTPro, DateOnly? fechaPro, string? descrip)
         {
             var updatedpro = await _proService.Update(id, IdCultivo, IdTPro, fechaPro, descrip);
             if (updatedpro == null)

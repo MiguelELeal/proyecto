@@ -15,8 +15,8 @@ namespace proyecto.Repositories
 
     public class SiembraRepository : ISiembraRepository
     {
-        private readonly GranjaDbContext _db;
-        public SiembraRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public SiembraRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -38,7 +38,17 @@ namespace proyecto.Repositories
         {
             Siembra siembra = await GetSie(id);
 
-            return await Update(siembra);
+            if (siembra == null)
+            {
+                return siembra;
+            }
+            else
+            {
+                siembra.status = false;
+            }
+            _db.Entry(siembra).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return siembra;
         }
 
         public async Task<List<Siembra>> GetAll()

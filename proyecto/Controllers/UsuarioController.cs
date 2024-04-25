@@ -41,7 +41,7 @@ namespace proyecto.Controllers
         }
         // PUT: api/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id,string email, string contrasena, int IdRol)
+        public async Task<IActionResult> PutUsuario(int id,string? email, string? contrasena, int? IdRol)
         {
             var updatedus = await _usService.Update(id, email, contrasena, IdRol);
             if (updatedus == null)

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Castle.Components.DictionaryAdapter.Xml;
+using Microsoft.EntityFrameworkCore;
 using proyecto.Context;
 using proyecto.Model;
 using System.Net;
@@ -15,8 +16,8 @@ namespace proyecto.Repositories
     }
     public class TrabajadoresRequeridosRepository : ITrabajadoresRequeridosRepository
     {
-        private readonly GranjaDbContext _db;
-        public TrabajadoresRequeridosRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public TrabajadoresRequeridosRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -36,7 +37,17 @@ namespace proyecto.Repositories
         {
             TrabajadoresRequeridos trar = await GetTr(id);
 
-            return await Update(trar);
+            if (trar == null)
+            {
+                return trar;
+            }
+            else
+            {
+                trar.status = false;
+            }
+            _db.Entry(trar).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return trar;
         }
 
         public async Task<List<TrabajadoresRequeridos>> GetAll()

@@ -15,8 +15,8 @@ namespace proyecto.Repositories
     }
     public class LogroConseguidoRepositiory : ILogroConseguidoRepositiory
     {
-        private readonly GranjaDbContext _db;
-        public LogroConseguidoRepositiory(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public LogroConseguidoRepositiory(AgroCacao db)
         {
             _db = db;
         }
@@ -37,7 +37,17 @@ namespace proyecto.Repositories
         {
             LogroConseguido loco = await GetLoCo(id);
 
-            return await Update(loco);
+            if (loco == null)
+            {
+                return loco;
+            }
+            else
+            {
+                loco.status = false;
+            }
+            _db.Entry(loco).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return loco;
         }
 
         public async Task<List<LogroConseguido>> GetAll()

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using proyecto.Context;
 using proyecto.Model;
 
@@ -8,23 +9,25 @@ namespace proyecto.Repositories
     {
         Task<List<Partida>> GetAll();
         Task<Partida> GetPartida(int id);
-        Task<Partida> CreatePartida(int IdUsuario, DateOnly fechaInicio);
+        Task<Partida> CreatePartida(int IdUsuario, DateOnly fechaInicio, string ubicacion, string nivel);
         Task<Partida> Update(Partida partida);
         Task<Partida> Delete(int id);
     }
     public class PartidaRepository : IPartidaRepository
     {
-        private readonly GranjaDbContext _db;
-        public PartidaRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public PartidaRepository(AgroCacao db)
         {
             _db = db;
         }
-        public async Task<Partida> CreatePartida(int IdUsuario, DateOnly fechaInicio)
+        public async Task<Partida> CreatePartida(int IdUsuario, DateOnly fechaInicio, string ubicacion, string nivel)
         {
             Partida newPartida = new Partida
             {
                 IDUsuarioFK = IdUsuario,
                 FechaInicio = fechaInicio,
+                Ubicacion = ubicacion,
+                Nivel = nivel
             };
             await _db.Partida.AddAsync(newPartida);
             await _db.SaveChangesAsync();
@@ -35,7 +38,17 @@ namespace proyecto.Repositories
         {
             Partida partida = await GetPartida(id);
 
-            return await Update(partida);
+            if (partida == null)
+            {
+                return partida;
+            }
+            else
+            {
+                partida.status = false;
+            }
+            _db.Entry(partida).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return partida;
         }
 
         public async Task<List<Partida>> GetAll()

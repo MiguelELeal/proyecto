@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using proyecto.Model;
+using System.Text.Json.Serialization;
 
 namespace proyecto.Model
 {
@@ -17,6 +18,8 @@ namespace proyecto.Model
         [ForeignKey("IdRolFK")]
 
         public virtual Rol? Rol { get; set; }
+        [JsonIgnore]
+        public bool status { get; set; } = true;
 
     }
 }

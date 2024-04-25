@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace proyecto.Model
 {
@@ -14,6 +15,13 @@ namespace proyecto.Model
         public virtual Usuario? Usuario { get; set; }
         [Required]
         public DateOnly FechaInicio { get; set; }
+        [Required]
+        public required string Ubicacion { get; set; }
+        [Required]
+        public required string Nivel {  get; set; }
+        [JsonIgnore]
+        public bool status { get; set; } = true;
+
 
     }
 }

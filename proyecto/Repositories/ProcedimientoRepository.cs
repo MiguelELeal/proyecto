@@ -14,8 +14,8 @@ namespace proyecto.Repositories
     }
     public class ProcedimientoRepository : IProcedimientoRepository
     {
-        private readonly GranjaDbContext _db;
-        public ProcedimientoRepository(GranjaDbContext db)
+        private readonly AgroCacao _db;
+        public ProcedimientoRepository(AgroCacao db)
         {
             _db = db;
         }
@@ -37,7 +37,17 @@ namespace proyecto.Repositories
         {
             Procedimento pro = await GetPro(id);
 
-            return await Update(pro);
+            if (pro == null)
+            {
+                return pro;
+            }
+            else
+            {
+                pro.status = false;
+            }
+            _db.Entry(pro).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return pro;
         }
 
         public async Task<List<Procedimento>> GetAll()

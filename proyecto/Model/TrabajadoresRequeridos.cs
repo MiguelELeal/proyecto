@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace proyecto.Model
 {
@@ -16,6 +17,8 @@ namespace proyecto.Model
         public int IDProcedimientoFK { get; set; }
         [ForeignKey("IDProcedimientoFK")]
         public virtual Procedimento? Procedimento { get; set; }
+        [JsonIgnore]
+        public bool status { get; set; } = true;
 
     }
 }
