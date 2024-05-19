@@ -10,6 +10,9 @@ namespace proyecto.Services
         Task<Usuario> CreateU(string email, string contrasena, int IdRol);
         Task<Usuario> Update(int id, string? email, string? contrasena, int? IdRol);
         Task<Usuario> Delete(int id);
+        Task<Usuario> LoginJ(string username, string password);
+        Task<List<Usuario>> LoginA(string username, string password);
+
     }
     public class UsuarioService : IUsuarioService
     {
@@ -64,5 +67,14 @@ namespace proyecto.Services
             }
             return await _usuRepository.Update(usu);
         }
+        public async Task<Usuario> LoginJ(string userName, string password)
+        {
+            return await _usuRepository.LoginJ(userName, password);
+        }
+        public Task<List<Usuario>> LoginA(string userName, string password)
+        {
+            return _usuRepository.LoginA(userName, password);
+        }
+
     }
 }

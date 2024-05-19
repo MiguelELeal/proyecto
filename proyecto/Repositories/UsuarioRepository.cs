@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using proyecto.Context;
 using proyecto.Model;
+using System.Linq;
 using System.Net;
 
 namespace proyecto.Repositories
@@ -12,6 +13,8 @@ namespace proyecto.Repositories
         Task<Usuario> CreateU(string email, string contrasena, int IdRol);
         Task<Usuario> Update(Usuario usu);
         Task<Usuario> Delete(int id);
+        Task<Usuario> LoginJ (string username, string password);
+        Task<List<Usuario>> LoginA(string username, string password);
     }
     public class UsuarioRepository : IUsuarioRepository
     {
@@ -66,5 +69,16 @@ namespace proyecto.Repositories
             await _db.SaveChangesAsync();
             return usu;
         }
+        public async Task<Usuario> LoginJ(string userName, string password)
+        {
+            return await _db.Usuarios.FirstOrDefaultAsync(u => u.email == userName && u.contrasena == password);
+
+        }
+        public  Task<List<Usuario>> LoginA(string userName, string password)
+        {
+            return  _db.Usuarios.Where(usuario => usuario.email.Equals(userName) && usuario.contrasena.Equals(password)).ToListAsync();
+
+        }
+
     }
 }

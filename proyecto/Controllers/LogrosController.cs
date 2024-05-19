@@ -35,7 +35,8 @@ namespace proyecto.Controllers
         // POST: api/
         [HttpPost]
         public async Task<ActionResult<Logro>> PostLogro(string nombre)
-        {
+        { 
+
             var newLo = await _loService.CreateLogro(nombre);
             return CreatedAtAction(nameof(GetLo), new { id = newLo.IDLogro }, newLo);
         }

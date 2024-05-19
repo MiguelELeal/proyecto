@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using proyecto.Context;
 using proyecto.Model;
 using proyecto.Services;
 
@@ -61,5 +62,39 @@ namespace proyecto.Controllers
             }
             return NoContent();
         }
+        [HttpPost("Login")]
+        public async Task<ActionResult<bool>> Login(string userName,string password )
+        {
+            
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("El nombre de usuario y la contraseña son obligatorios.");
+            }
+
+            var user = await _usService.LoginJ(userName, password);
+            if (user != null)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
+        // GET: api/
+        [HttpGet("{username}/{password}")]
+        
+        public async Task<ActionResult<Usuario>> GetIniciarSecion(string username, string password)
+        {
+            
+            var us = await _usService.LoginA(username, password);
+            if (us == null)
+            {
+                return NotFound();
+            }
+            return Ok(us);
+        }
+
     }
+
 }
