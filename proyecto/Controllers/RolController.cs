@@ -34,15 +34,18 @@ namespace proyecto.Controllers
         }
         // POST: api/Rol
         [HttpPost]
-        public async Task<ActionResult<Rol>> PostRol(string tipo)
+        public async Task<ActionResult<Rol>> PostRol([FromBody] Rol rol)
         {
+            string tipo = rol.TipoRol;
             var newRol = await _rolService.CreateRol(tipo);
             return CreatedAtAction(nameof(GetRol), new { id = newRol.IdRol }, newRol);
         }
         // PUT: api/Rol
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRol(int id, string? tipo)
+        [HttpPut]
+        public async Task<IActionResult> PutRol([FromBody] Rol rol)
         {
+            int id = rol.IdRol;
+            string? tipo = rol.TipoRol;
             var updatedRol = await _rolService.Update(id, tipo);
             if (updatedRol == null)
             {

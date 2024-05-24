@@ -34,15 +34,18 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<TipoDocumento>> PostTipoDocumento(string tipo)
+        public async Task<ActionResult<TipoDocumento>> PostTipoDocumento([FromBody] TipoDocumento tipoDocumento)
         {
+            string tipo = tipoDocumento.TipoDo;
             var newTip = await _tipService.CreateTD(tipo);
             return CreatedAtAction(nameof(GetTip), new { id = newTip.IDTipoDoc }, newTip);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTípoDocumento(int id, string? tipo)
+        [HttpPut]
+        public async Task<IActionResult> PutTípoDocumento([FromBody] TipoDocumento tipoDocumento)
         {
+            int id = tipoDocumento.IDTipoDoc;
+            string? tipo = tipoDocumento.TipoDo;
             var updatedtip = await _tipService.Update(id,tipo);
             if (updatedtip == null)
             {

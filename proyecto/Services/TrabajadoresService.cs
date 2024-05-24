@@ -54,7 +54,7 @@ namespace proyecto.Services
                 }
                 if (nombre != null)
                 {
-
+                    tra.Nombres = nombre;
                 }
                 if (apellido != null)
                 {

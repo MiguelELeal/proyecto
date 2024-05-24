@@ -34,15 +34,22 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Siembra>> PostSiembra(DateOnly fechaSie, float Area, int IdTe)
+        public async Task<ActionResult<Siembra>> PostSiembra([FromBody] Siembra siembra)
         {
+            DateOnly fechaSie = siembra.FechaSiembra;
+            float Area = siembra.AreaTotalS;
+            int IdTe = siembra.IDTerrenoFK;
             var newSie = await _sieService.CreateSie(fechaSie,Area, IdTe);
             return CreatedAtAction(nameof(GetSie), new { id = newSie.IDSiembra }, newSie);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSiembra(int id, DateOnly? fechaSie, float? Area, int? IdTe)
+        [HttpPut]
+        public async Task<IActionResult> PutSiembra([FromBody] Siembra siembra)
         {
+            int id = siembra.IDSiembra;
+            DateOnly? fechaSie = siembra.FechaSiembra;
+            float? Area = siembra.AreaTotalS;
+            int? IdTe = siembra.IDTerrenoFK;
             var updatedsie = await _sieService.Update(id, fechaSie, Area, IdTe);
             if (updatedsie == null)
             {

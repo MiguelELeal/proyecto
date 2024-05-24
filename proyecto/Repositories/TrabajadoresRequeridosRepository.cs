@@ -52,7 +52,7 @@ namespace proyecto.Repositories
 
         public async Task<List<TrabajadoresRequeridos>> GetAll()
         {
-            return await _db.TrabajadoresRequeridos.ToListAsync();
+            return await _db.TrabajadoresRequeridos.Include(c => c.Procedimento).Include(c=> c.Trabajadores).ToListAsync();
         }
 
         public async Task<TrabajadoresRequeridos> GetTr(int id)

@@ -53,7 +53,7 @@ namespace proyecto.Repositories
 
         public async Task<List<Siembra>> GetAll()
         {
-            return await _db.Siembras.ToListAsync();
+            return await _db.Siembras.Include(c => c.Terreno).ToListAsync();
         }
 
         public async Task<Siembra> GetSie(int id)

@@ -34,15 +34,26 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Trabajadores>> PostTrabajadores(string numdoc, string nombre, string apellido, int IdRol, int IdTiD)
+        public async Task<ActionResult<Trabajadores>> PostTrabajadores([FromBody] Trabajadores trabajadores)
         {
+            string numdoc = trabajadores.NumDoc;
+            string nombre = trabajadores.Nombres;
+            string apellido = trabajadores.Apellidos;
+            int IdRol = trabajadores.IDRolFK;
+            int IdTiD = trabajadores.IDTipoDocFK;
             var newTra = await _traService.CreateT(numdoc,nombre,apellido,IdRol,IdTiD);
             return CreatedAtAction(nameof(GetTra), new { id = newTra.IDTrabajador }, newTra);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrabajadores(int id, string? numdoc, string? nombre, string? apellido, int? IdRol, int? IdTiD)
+        [HttpPut]
+        public async Task<IActionResult> PutTrabajadores([FromBody] Trabajadores trabajadores)
         {
+            int id = trabajadores.IDTrabajador;
+            string? numdoc = trabajadores.NumDoc;
+            string? nombre = trabajadores.Nombres;
+            string? apellido = trabajadores.Apellidos;
+            int? IdRol = trabajadores.IDRolFK;
+            int? IdTiD = trabajadores.IDTipoDocFK;
             var updatedtra = await _traService.Update(id, numdoc, nombre, apellido, IdRol, IdTiD);
             if (updatedtra == null)
             {

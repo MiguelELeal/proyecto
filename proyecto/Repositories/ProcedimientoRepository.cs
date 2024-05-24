@@ -52,7 +52,7 @@ namespace proyecto.Repositories
 
         public async Task<List<Procedimento>> GetAll()
         {
-            return await _db.Procedimentos.ToListAsync();
+            return await _db.Procedimentos.Include(c => c.Cultivo).Include(c => c.TipoProcedimiento).ToListAsync();
         }
 
         public async Task<Procedimento> GetPro(int id)

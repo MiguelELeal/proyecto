@@ -34,16 +34,18 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Logro>> PostLogro(string nombre)
-        { 
-
+        public async Task<ActionResult<Logro>> PostLogro([FromBody] Logro logro)
+        {
+            string nombre = logro.NombreLogro;
             var newLo = await _loService.CreateLogro(nombre);
             return CreatedAtAction(nameof(GetLo), new { id = newLo.IDLogro }, newLo);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLogro(int id, string? nombre)
+        [HttpPut]
+        public async Task<IActionResult> PutLogro([FromBody] Logro logro)
         {
+            int id = logro.IDLogro;
+            string? nombre = logro.NombreLogro;
             var updatedLo = await _loService.Update(id, nombre);
             if (updatedLo == null)
             {

@@ -53,7 +53,7 @@ namespace proyecto.Repositories
 
         public async Task<List<Partida>> GetAll()
         {
-            return await _db.Partida.ToListAsync();
+            return await _db.Partida.Include(c => c.Usuario).ToListAsync();
         }
 
         public async Task<Partida> GetPartida(int id)

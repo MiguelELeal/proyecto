@@ -34,15 +34,24 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Procedimento>> PostProcedimiento(int IdCultivo, int IdTPro, DateOnly fechaPro, string descrip)
+        public async Task<ActionResult<Procedimento>> PostProcedimiento([FromBody] Procedimento procedimento)
         {
+            int IdCultivo = procedimento.IDCultivoFK;
+            int IdTPro = procedimento.IDTipoProcedimientoFK;
+            DateOnly fechaPro = procedimento.FechaProcedimiento;
+            string descrip = procedimento.Descripcion;
             var newPro = await _proService.CreatePro(IdCultivo, IdTPro,fechaPro,descrip);
             return CreatedAtAction(nameof(GetPro), new { id = newPro.IDProcedimiento }, newPro);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProcedimiento(int id, int? IdCultivo, int? IdTPro, DateOnly? fechaPro, string? descrip)
+        [HttpPut]
+        public async Task<IActionResult> PutProcedimiento([FromBody] Procedimento procedimento)
         {
+            int id = procedimento.IDProcedimiento;
+            int? IdCultivo = procedimento.IDCultivoFK;
+            int? IdTPro = procedimento.IDTipoProcedimientoFK;
+            DateOnly? fechaPro = procedimento.FechaProcedimiento;
+            string? descrip = procedimento.Descripcion;
             var updatedpro = await _proService.Update(id, IdCultivo, IdTPro, fechaPro, descrip);
             if (updatedpro == null)
             {

@@ -35,15 +35,24 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Partida>> PostPartida(int IdUsuario, DateOnly fechaInicio, string ubicacion, string nivel)
+        public async Task<ActionResult<Partida>> PostPartida([FromBody] Partida partida)
         {
+            int IdUsuario = partida.IDUsuarioFK;
+            DateOnly fechaInicio = partida.FechaInicio;
+            string ubicacion = partida.Ubicacion;
+            string nivel = partida.Nivel;
             var newPa = await _paService.CreatePartida(IdUsuario, fechaInicio, ubicacion, nivel);
             return CreatedAtAction(nameof(GetPa), new { id = newPa.IDPartida }, newPa);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPartida(int id, int? IdUsuario, DateOnly? fechaInicio, string? ubicacion, string? nivel)
+        [HttpPut]
+        public async Task<IActionResult> PutPartida([FromBody] Partida partida)
         {
+            int id = partida.IDPartida;
+            int? IdUsuario = partida.IDUsuarioFK;
+            DateOnly? fechaInicio = partida.FechaInicio;
+            string? ubicacion = partida.Ubicacion;
+            string? nivel = partida.Nivel;
             var updatedpa = await _paService.Update(id, IdUsuario, fechaInicio,ubicacion,nivel);
             if (updatedpa == null)
             {

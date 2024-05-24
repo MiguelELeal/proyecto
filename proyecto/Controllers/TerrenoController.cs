@@ -34,15 +34,20 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Terreno>> PostTerreno(string nombre, float area)
+        public async Task<ActionResult<Terreno>> PostTerreno([FromBody] Terreno terreno)
         {
+            string nombre = terreno.Nombre;
+            float area = terreno.Area;
             var newTe = await _teService.CreateTe(nombre, area);
             return CreatedAtAction(nameof(GetTe), new { id = newTe.IDTerreno }, newTe);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTerreno(int id, string? nombre, float? area)
+        [HttpPut]
+        public async Task<IActionResult> PutTerreno([FromBody] Terreno terreno)
         {
+            int id = terreno.IDTerreno;
+            string? nombre = terreno.Nombre;
+            float? area = terreno.Area;
             var updatedte = await _teService.Update(id, nombre, area);
             if (updatedte == null)
             {

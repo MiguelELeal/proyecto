@@ -52,7 +52,7 @@ namespace proyecto.Repositories
 
         public async Task<List<InsumosRequeridos>> GetAll()
         {
-            return await _db.InsumosRequeridos.ToListAsync();
+            return await _db.InsumosRequeridos.Include(c=> c.Insumos).Include(c => c.Procedimento).ToListAsync();
         }
 
         public async Task<InsumosRequeridos> GetIns(int id)

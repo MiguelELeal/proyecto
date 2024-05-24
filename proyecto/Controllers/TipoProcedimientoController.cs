@@ -34,15 +34,18 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<TipoProcedimiento>> PostTipoProcedimiento(string tipo)
+        public async Task<ActionResult<TipoProcedimiento>> PostTipoProcedimiento([FromBody] TipoProcedimiento tipoProcedimiento)
         {
+            string tipo = tipoProcedimiento.Nombre;
             var newTip = await _tipService.CreateTp(tipo);
             return CreatedAtAction(nameof(GetTip), new { id = newTip.IDTipoPro }, newTip);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTípoProcedimiento(int id, string? tipo)
+        [HttpPut]
+        public async Task<IActionResult> PutTípoProcedimiento([FromBody] TipoProcedimiento tipoProcedimiento)
         {
+            int id = tipoProcedimiento.IDTipoPro;
+            string? tipo = tipoProcedimiento.Nombre;
             var updatedtip = await _tipService.Update(id, tipo);
             if (updatedtip == null)
             {

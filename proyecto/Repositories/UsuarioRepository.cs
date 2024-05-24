@@ -55,7 +55,7 @@ namespace proyecto.Repositories
 
         public async Task<List<Usuario>> GetAll()
         {
-            return await _db.Usuarios.ToListAsync();
+            return await _db.Usuarios.Include(c => c.Rol).ToListAsync();
         }
 
         public async Task<Usuario> GetU(int id)

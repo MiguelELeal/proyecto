@@ -35,15 +35,22 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<LogroConseguido>> PostLogro(int IdPartida, int IdLogro, DateOnly fechaLogro)
+        public async Task<ActionResult<LogroConseguido>> PostLogro([FromBody] LogroConseguido logroConseguido)
         {
+            int IdPartida = logroConseguido.IDPartidaFK;
+            int IdLogro = logroConseguido.IDLogroFK;
+            DateOnly fechaLogro = logroConseguido.FechaLogro;
             var newLo = await _loService.CreateLoCo(IdPartida,IdLogro,fechaLogro);
             return CreatedAtAction(nameof(GetLo), new { id = newLo.IDLogCon }, newLo);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLogro(int id, int? IdPartida, int? IdLogro, DateOnly? fechaLogro)
+        [HttpPut]
+        public async Task<IActionResult> PutLogro([FromBody] LogroConseguido logroConseguido)
         {
+            int id = logroConseguido.IDLogCon;
+            int? IdPartida = logroConseguido.IDPartidaFK;
+            int? IdLogro = logroConseguido.IDLogroFK;
+            DateOnly? fechaLogro = logroConseguido.FechaLogro;
             var updatedLo = await _loService.Update(id, IdPartida, IdLogro, fechaLogro);
             if (updatedLo == null)
             {

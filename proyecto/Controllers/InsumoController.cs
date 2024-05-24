@@ -34,15 +34,22 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Insumos>> PostInsumo(string nombre, string descripcion, int stock)
+        public async Task<ActionResult<Insumos>> PostInsumo([FromBody] Insumos insumos )
         {
+            string nombre = insumos.NombreInsumo;
+            string descripcion = insumos.Descripcion;
+            int stock = insumos.stock;
             var newIns = await _insumoService.CreateInsumo(nombre, descripcion, stock);
             return CreatedAtAction(nameof(GetIn), new { id = newIns.IDInsumo }, newIns);
         }
         // PUT: api/
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInsumo(int id, string? nombre, string? descripcion, int? stock)
+        [HttpPut]
+        public async Task<IActionResult> PutInsumo([FromBody] Insumos insumos)
         {
+            int id = insumos.IDInsumo;
+            string? nombre = insumos.NombreInsumo;
+            string? descripcion = insumos.Descripcion;
+            int? stock = insumos.stock;
             var updatedIns = await _insumoService.Update(id, nombre, descripcion, stock);
             if (updatedIns == null)
             {

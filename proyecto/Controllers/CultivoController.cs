@@ -35,15 +35,24 @@ namespace proyecto.Controllers
         }
         // POST: api/Rol
         [HttpPost]
-        public async Task<ActionResult<Cultivo>> PostCultivo(int IdSiembra, DateOnly FechaCosE, int IdEstado, DateOnly FechaModificacion)
+        public async Task<ActionResult<Cultivo>> PostCultivo([FromBody] Cultivo cultivo)
         {
+            int IdSiembra = cultivo.IdSiembraFK;
+            DateOnly FechaCosE = cultivo.FechaCosechaE;
+            int IdEstado = cultivo.IdEstadoFK;
+            DateOnly FechaModificacion = cultivo.FechaModificacion;
             var newCul = await _cultivoService.CreateCultivo(IdSiembra,FechaCosE,IdEstado,FechaModificacion);
             return CreatedAtAction(nameof(GetCul), new { id = newCul.IDCultivo }, newCul);
         }
         // PUT: api/Rol
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCultivo(int id, int? IdSiembra, DateOnly? FechaCosE, int? IdEstado, DateOnly? FechaModificacion)
+        [HttpPut]
+        public async Task<IActionResult> PutCultivo([FromBody] Cultivo cultivo)
         {
+            int id = cultivo.IDCultivo;
+            int? IdSiembra = cultivo.IdSiembraFK;
+            DateOnly? FechaCosE = cultivo.FechaCosechaE;
+            int? IdEstado = cultivo.IdEstadoFK;
+            DateOnly? FechaModificacion = cultivo.FechaModificacion;
             var updatedEsta = await _cultivoService.Update(id, IdSiembra, FechaCosE, IdEstado, FechaModificacion);
             if (updatedEsta == null)
             {

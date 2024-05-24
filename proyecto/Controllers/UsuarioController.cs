@@ -35,8 +35,11 @@ namespace proyecto.Controllers
         }
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(string email, string contrasena, int IdRol)
+        public async Task<ActionResult<Usuario>> PostUsuario([FromBody] Usuario usuario)
         {
+            string email = usuario.email; 
+            string contrasena = usuario.contrasena; 
+            int IdRol = usuario.IdRolFK;
             var newUsu = await _usService.CreateU(email, contrasena, IdRol);
             return CreatedAtAction(nameof(GetUs), new { id = newUsu.IDUsuario }, newUsu);
         }

@@ -34,15 +34,18 @@ namespace proyecto.Controllers
         }
         // POST: api/Rol
         [HttpPost]
-        public async Task<ActionResult<EstadoCultivo>> PostEsta(string nombre)
+        public async Task<ActionResult<EstadoCultivo>> PostEsta([FromBody] EstadoCultivo estadoCultivo)
         {
+            string nombre = estadoCultivo.NombreEstado;
             var newEsta = await _estaService.CreateEsta(nombre);
             return CreatedAtAction(nameof(GetEsta), new { id = newEsta.IDEstado }, newEsta);
         }
         // PUT: api/Rol
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEstado(int id, string? nombre)
+        [HttpPut]
+        public async Task<IActionResult> PutEstado([FromBody] EstadoCultivo estadoCultivo)
         {
+            int id = estadoCultivo.IDEstado;
+            string? nombre = estadoCultivo.NombreEstado;
             var updatedEsta = await _estaService.Update(id, nombre);
             if (updatedEsta == null)
             {

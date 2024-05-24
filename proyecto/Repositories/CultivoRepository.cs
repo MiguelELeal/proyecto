@@ -53,7 +53,7 @@ namespace proyecto.Repositories
 
         public async Task<List<Cultivo>> GetAll()
         {
-            return await _db.Cultivos.ToListAsync();
+            return await _db.Cultivos.Include(c => c.EstadoCultivo).Include(c => c.Siembra).ToListAsync();
         }
 
         public async Task<Cultivo> GetCultivo(int id)

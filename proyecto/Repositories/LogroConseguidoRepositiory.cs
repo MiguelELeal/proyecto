@@ -52,7 +52,7 @@ namespace proyecto.Repositories
 
         public async Task<List<LogroConseguido>> GetAll()
         {
-            return await _db.LogrosConseguidos.ToListAsync();
+            return await _db.LogrosConseguidos.Include(c=> c.Partida).Include(c => c.Logro).ToListAsync();
         }
 
         public async Task<LogroConseguido> GetLoCo(int id)
